@@ -29,7 +29,7 @@
         android:layout_below="@+id/news_headline"
         android:contentDescription="news_thumbnail"
         android:scaleType="fitCenter"
-        android:src="@drawable/magnitude_circle" />
+        android:src="@drawable/placeholder" />
 
     <TextView
         android:id="@+id/news_byline"
