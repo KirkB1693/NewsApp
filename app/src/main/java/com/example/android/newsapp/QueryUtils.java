@@ -99,7 +99,7 @@ public final class QueryUtils {
                         }
 
                         // Set a default drawable for the thumbnail in case there isn't a link in the JSON response
-                        Drawable thumbnail = context.getResources().getDrawable(R.drawable.magnitude_circle);
+                        Drawable thumbnail = context.getResources().getDrawable(R.drawable.placeholder);
 
                         try {
                             String thumbnailUrl = fields.getString("thumbnail");
