@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_standard">16dp</dimen>
+    <dimen name="thumbnail_width">48dp</dimen>
+    <dimen name="thumbnail_height">75dp</dimen>
+    <dimen name="list_top_margin">4dp</dimen>
+    <dimen name="list_padding">16dp</dimen>
+    <dimen name="list_item_height">120dp</dimen>
+    <dimen name="search_input_top_margin">40dp</dimen>
+    <dimen name="news_headline_font_size">16sp</dimen>
+    <dimen name="news_byline_font_size">14sp</dimen>
+    <dimen name="news_blurb_font_size">12sp</dimen>
+</resources>

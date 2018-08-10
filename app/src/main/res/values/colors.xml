@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary color of the app (shown in the app bar) -->
+    <color name="colorPrimary">#311b92</color>
+
+    <!-- Primary dark color of the app (shown in the status bar) -->
+    <color name="colorPrimaryDark">#000063</color>
+
+    <!-- Accent color of the app -->
+    <color name="colorAccent">#7c4dff</color>
+
+    <color name="colorSecondary">#ffff00</color>
+    <color name="textColorNewsHeadline">@android:color/black</color>
+    <color name="textColorNewsByline">@android:color/holo_green_dark</color>
+    <color name="textColorNewsBlurb">@android:color/darker_gray</color>
+
+    <color name="searchBox">#e0e0e0</color>
+    <color name="searchBackground">#73311b92</color>
+    <color name="searchBoxFocused">#FFFFFF</color>
+
+</resources>
