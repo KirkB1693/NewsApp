@@ -124,10 +124,10 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
                 getString(R.string.settings_search_key),
                 getString(R.string.settings_search_default));
 
-        String numberOfResults = sharedPrefs.getString(
-                getString(R.string.settings_result_key),
-                getString(R.string.settings_results_default)
-        );
+        String numberOfResults = Integer.toString(sharedPrefs.getInt(
+                getString(R.string.settings_number_key),
+                0
+        ));
 
         Uri baseUri = Uri.parse(GUARDIAN_REQUEST_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();

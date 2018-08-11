@@ -10,12 +10,10 @@
         android:selectAllOnFocus="true"
         android:title="@string/settings_search_label" />
 
-
-    <EditTextPreference
+    <com.example.android.newsapp.NumberPickerPreference
+        android:key="@string/settings_number_key"
+        android:title="@string/settings_number_label"
         android:defaultValue="@string/settings_results_default"
-        android:inputType="number"
-        android:key="@string/settings_result_key"
-        android:selectAllOnFocus="true"
-        android:title="@string/settings_results_label" />
+        />
 
 </PreferenceScreen>

@@ -14,9 +14,12 @@
 
     <!-- Strings For Number of Results to Show [CHAR LIMIT=30] -->
     <string name="settings_results_label"># of Results to Show (Max 50)</string>
+    <string name="settings_number_key">key_number</string>
+    <string name="settings_number_label">Number of Results to Show</string>
     <string name="settings_result_key" translatable="false">number_results</string>
     <string name="settings_results_default" translatable="false">10</string>
 
     <string name="no_news">No News Found</string>
     <string name="no_internet">No Internet Connection</string>
+
 </resources>
