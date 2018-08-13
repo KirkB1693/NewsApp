@@ -25,12 +25,10 @@ public class SettingsActivity extends AppCompatActivity {
             addPreferencesFromResource(R.xml.settings_main);
 
             Preference search = findPreference(getString(R.string.settings_search_key));
-            bindPreferenceSummaryToValue(search);
+            bindPreferenceSummaryToValueString(search);
 
-            int aNumber = getPreferenceManager().getSharedPreferences().getInt(getString(R.string.settings_number_key),0);
-            Preference number = findPreference(getString(R.string.settings_number_key));
-            number.setSummary(Integer.toString(aNumber));
-            bindPreferenceSummaryToValueInt(number);
+            Preference results = findPreference(getString(R.string.settings_number_key));
+            bindPreferenceSummaryToValueInt(results);
         }
 
         @Override
@@ -49,7 +47,7 @@ public class SettingsActivity extends AppCompatActivity {
             return true;
         }
 
-        private void bindPreferenceSummaryToValue(Preference preference) {
+        private void bindPreferenceSummaryToValueString(Preference preference) {
             preference.setOnPreferenceChangeListener(this);
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(preference.getContext());
             String preferenceString = preferences.getString(preference.getKey(), "");

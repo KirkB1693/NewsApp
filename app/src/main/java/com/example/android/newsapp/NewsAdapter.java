@@ -14,10 +14,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class NewsAdapter extends ArrayAdapter<News> {
-    private static final String LOG_TAG = NewsAdapter.class.getSimpleName();
-    private static final String LOCATION_SEPARATOR = " of ";
 
 
     /**
@@ -56,13 +55,15 @@ public class NewsAdapter extends ArrayAdapter<News> {
 
         // Find the TextView in the news_list.xml layout with the ID version_name
         TextView news_headline = (TextView) listItemView.findViewById(R.id.news_headline);
-
         // Get the headline from the current News object and
         // set this text on the news_headline TextView
         String headline = currentNews.getHeadline();
         news_headline.setText(headline);
 
+        // Find the ImageView in the news_list.xml layout with the ID version_name
         ImageView thumbnail = (ImageView) listItemView.findViewById((R.id.news_thumbnail));
+        // Get the drawable from the current news object and
+        // set this image on the news_thumbnail ImageView
         thumbnail.setImageDrawable(currentNews.getThumbnail());
 
         // Find the TextView in the news_list.xml layout with the ID version_number
@@ -73,27 +74,30 @@ public class NewsAdapter extends ArrayAdapter<News> {
 
         // Find the TextView in the news_list.xml layout with the ID version_number
         TextView news_blurb = (TextView) listItemView.findViewById(R.id.news_blurb);
-        // Get the quake location from the current News object and then get the primary location portion of the text
-        // set this text on the quake_location_offset TextView
+        // Get the body of the article from the current News object
+        // set this text on the news_blurb TextView
         news_blurb.setText(currentNews.getBody());
 
-        // Find the TextView in the quake_list.xml layout with the ID version_number
+        // Find the TextView in the news_list.xml layout with the ID version_number
         TextView news_section = (TextView) listItemView.findViewById(R.id.news_section);
-        // Get the quake date from the current News object and
-        // set this text on the quake_date TextView
+        // Get the news section from the current News object and
+        // set this text on the news_section TextView
         news_section.setText(currentNews.getSection());
 
+        // Find the TextView in the news_list.xml layout with the ID version_number
         TextView news_publication_date = (TextView) listItemView.findViewById(R.id.news_publication_date);
+        // Get the publication date from the current news object
         String rawPublicationDate = currentNews.getPublicationDate();
+        // Transform the publication date from the DateTime format received in JSON to a String with the desired date format
         Date date = StringToDate(rawPublicationDate);
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM d, yyyy");
-
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM d, yyyy", Locale.US);
+        // Set the formatted date string on the news_publication_date TextView
         news_publication_date.setText(formatter.format(date));
 
 
 
         /*
-        // Return the whole list item layout (containing 3 TextViews)
+        // Return the whole list item layout (containing 5 TextViews and 1 ImageView)
         // so that it can be shown in the ListView
         */
         return listItemView;
@@ -106,7 +110,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
         // (1) create a SimpleDateFormat object with the desired format.
         // this is the format/pattern we're expecting to receive. 2018-07-30T23:54:39Z
         String expectedPattern = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-        SimpleDateFormat formatter = new SimpleDateFormat(expectedPattern);
+        SimpleDateFormat formatter = new SimpleDateFormat(expectedPattern, Locale.US);
         try
         {
             // (2) give the formatter a String that matches the SimpleDateFormat pattern

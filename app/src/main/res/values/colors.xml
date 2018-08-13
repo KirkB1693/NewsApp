@@ -14,8 +14,5 @@
     <color name="textColorNewsByline">@android:color/holo_green_dark</color>
     <color name="textColorNewsBlurb">@android:color/darker_gray</color>
 
-    <color name="searchBox">#e0e0e0</color>
-    <color name="searchBackground">#73311b92</color>
-    <color name="searchBoxFocused">#FFFFFF</color>
 
 </resources>

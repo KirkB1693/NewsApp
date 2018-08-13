@@ -63,7 +63,9 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
 
         ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
+        assert cm != null;
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
 

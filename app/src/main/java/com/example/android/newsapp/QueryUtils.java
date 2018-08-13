@@ -2,7 +2,10 @@ package com.example.android.newsapp;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.v4.content.res.ResourcesCompat;
 import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -27,7 +30,7 @@ public final class QueryUtils {
     /**
      * Tag for the log messages
      */
-    public static final String LOG_TAG = QueryUtils.class.getSimpleName();
+    private static final String LOG_TAG = QueryUtils.class.getSimpleName();
 
 
     /**
@@ -45,15 +48,6 @@ public final class QueryUtils {
     public static ArrayList<News> extractNews(Context context, String webUrl) {
 
         Log.i(LOG_TAG, "TEST: extractNews() has been called");
-
-        /* Pause for 2 seconds
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
-
 
         // Create an empty ArrayList that we can start adding news to
         ArrayList<News> news = new ArrayList<>();
@@ -75,22 +69,26 @@ public final class QueryUtils {
                     JSONObject fields = newsObject.getJSONObject("fields");
                     if (fields != null && fields.length() > 0) {
                         String headline = fields.getString("headline");
-
-                        String body = "";
-                        try {
-                            body = Html.fromHtml(fields.getString("body")).toString();
-                        } catch (Exception e){
-                            Log.e("QueryUtils", "Problem getting body in the news JSON results", e);
-                        }
                         String section = newsObject.getString("sectionName");
 
+
+                        // Set a default story body in case there isn't a link in the JSON response
+                        String body = "";
+                        try {
+                            body = fromHtml(fields.getString("body")).toString();
+                        } catch (Exception e) {
+                            Log.e("QueryUtils", "Problem getting body in the news JSON results", e);
+                        }
+
+                        // Set a default byline in case there isn't a link in the JSON response
                         String byline = "No Byline";
                         try {
                             byline = fields.getString("byline");
-                        } catch (Exception e){
+                        } catch (Exception e) {
                             Log.e("QueryUtils", "Problem getting byline in the news JSON results", e);
                         }
 
+                        // Set a default publication date in case there isn't a link in the JSON response
                         String publicationDate = "";
                         try {
                             publicationDate = newsObject.getString("webPublicationDate");
@@ -99,7 +97,7 @@ public final class QueryUtils {
                         }
 
                         // Set a default drawable for the thumbnail in case there isn't a link in the JSON response
-                        Drawable thumbnail = context.getResources().getDrawable(R.drawable.placeholder);
+                        Drawable thumbnail = ResourcesCompat.getDrawable(context.getResources(),R.drawable.placeholder,null);
 
                         try {
                             String thumbnailUrl = fields.getString("thumbnail");
@@ -229,4 +227,14 @@ public final class QueryUtils {
             return null;
         }
     }
+
+    @SuppressWarnings("deprecation")
+    private static Spanned fromHtml(String html){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            return Html.fromHtml(html);
+        }
+    }
+
 }
