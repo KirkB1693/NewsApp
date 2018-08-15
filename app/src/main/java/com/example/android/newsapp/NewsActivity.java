@@ -91,8 +91,10 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
                     // Create a new intent to view the news URI
                     Intent websiteIntent = new Intent(Intent.ACTION_VIEW, newsUri);
 
+                    // Check to make sure Intent is available (not null) and then
                     // Send the intent to launch a new activity
-                    startActivity(websiteIntent);
+                    if (websiteIntent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(websiteIntent);}
                 }
 
             });
@@ -136,7 +138,8 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
 
         uriBuilder.appendQueryParameter("q", searchTerms);
         uriBuilder.appendQueryParameter("lang", "en");
-        uriBuilder.appendQueryParameter("show-fields", "byline,thumbnail,headline,lastModified,body");
+        uriBuilder.appendQueryParameter("show-fields", "thumbnail,headline,lastModified,body");
+        uriBuilder.appendQueryParameter("show-tags", "contributor");
         uriBuilder.appendQueryParameter("page-size",numberOfResults);
         uriBuilder.appendQueryParameter("api-key", API_KEY);
 

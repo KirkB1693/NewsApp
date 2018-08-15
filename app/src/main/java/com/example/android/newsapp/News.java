@@ -6,25 +6,23 @@ public class News {
     private String mHeadline;
     private String mBody;
     private String mSection;
-    private String mByline;
+    private String mAuthor;
     private String mPublicationDate;
     private Drawable mThumbnail;
     private String mUrl;
 
 
-    public News(String headline, String body, String section, String byline, String publicationDate, Drawable thumbnail, String url) {
+    public News(String headline, String body, String section, String author, String publicationDate, Drawable thumbnail, String url) {
         mHeadline = headline;
         mBody = body;
         mSection = section;
-        mByline = byline;
+        mAuthor = author;
         mPublicationDate = publicationDate;
         mThumbnail = thumbnail;
         mUrl = url;
     }
 
-    public String getHeadline() {
-        return mHeadline;
-    }
+    public String getHeadline() { return mHeadline; }
 
     public String getBody() {
         return mBody;
@@ -38,8 +36,8 @@ public class News {
         return mSection;
     }
 
-    public String getByline() {
-        return mByline;
+    public String getAuthor() {
+        return mAuthor;
     }
 
     public Drawable getThumbnail() {
@@ -54,12 +52,12 @@ public class News {
     public String toString() {
         return "News{" +
                 "mHeadline = " + mHeadline +
-                ", mBody = "+ mBody +
+                ", mBody = " + mBody +
                 ", mSection = " + mSection +
-                ", mByline = " + mByline +
+                ", mAuthor = " + mAuthor +
                 ", mPublicationDate = " + mPublicationDate +
-                ", mThumbnail = "+ mThumbnail +
-                ", mUrl = "+ mUrl +
+                ", mThumbnail = " + mThumbnail +
+                ", mUrl = " + mUrl +
                 "}";
     }
 }

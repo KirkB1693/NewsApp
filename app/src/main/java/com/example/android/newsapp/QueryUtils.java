@@ -68,22 +68,50 @@ public final class QueryUtils {
 
                     JSONObject fields = newsObject.getJSONObject("fields");
                     if (fields != null && fields.length() > 0) {
-                        String headline = fields.getString("headline");
-                        String section = newsObject.getString("sectionName");
+                        // Set a default headline in case there isn't a link in the JSON response
+                        String headline = "";
+                        try {
+                            headline = fields.getString("headline");
+                        } catch (Exception e) {
+                            Log.e("QueryUtils", "Problem getting headline in the news JSON results", e);
+                        }
+
+                        // Set a default section in case there isn't a link in the JSON response
+                        String section = "";
+                        try {
+                            section = newsObject.getString("sectionName");
+                        } catch (Exception e) {
+                            Log.e("QueryUtils", "Problem getting section in the news JSON results", e);
+                        }
 
 
                         // Set a default story body in case there isn't a link in the JSON response
                         String body = "";
                         try {
-                            body = fromHtml(fields.getString("body")).toString();
+                            // Strip Html formatting codes from the body text, remove nextline and [obj] characters
+                            body = stripHtml(fields.getString("body")).toString().replaceAll("\n", "").replace((char) 65532, (char) 32).trim();
                         } catch (Exception e) {
                             Log.e("QueryUtils", "Problem getting body in the news JSON results", e);
                         }
 
                         // Set a default byline in case there isn't a link in the JSON response
-                        String byline = "No Byline";
+                        String author = "";
                         try {
-                            byline = fields.getString("byline");
+                            JSONArray tagsArray = newsObject.getJSONArray("tags");
+                            if (tagsArray != null && tagsArray.length() > 0){
+                                StringBuilder authorBuilder = new StringBuilder();
+                                for (int j=0; j < tagsArray.length(); j++){
+                                    JSONObject tagsObject = tagsArray.getJSONObject(j);
+                                    if (j==0) {
+                                        authorBuilder.append(tagsObject.getString("webTitle"));
+                                    } else {
+                                        authorBuilder.append(", ");
+                                        authorBuilder.append(tagsObject.getString("webTitle"));
+                                    }
+                                }
+                                author = authorBuilder.toString();
+                            }
+
                         } catch (Exception e) {
                             Log.e("QueryUtils", "Problem getting byline in the news JSON results", e);
                         }
@@ -108,7 +136,7 @@ public final class QueryUtils {
 
                         String url = newsObject.getString("webUrl");
 
-                        news.add(new News(headline, body, section, byline, publicationDate, thumbnail, url));
+                        news.add(new News(headline, body, section, author, publicationDate, thumbnail, url));
                     }
                 }
             }
@@ -229,12 +257,14 @@ public final class QueryUtils {
     }
 
     @SuppressWarnings("deprecation")
-    private static Spanned fromHtml(String html){
+    private static Spanned stripHtml(String html){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
         } else {
             return Html.fromHtml(html);
         }
     }
+
+
 
 }
